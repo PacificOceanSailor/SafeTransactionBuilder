@@ -1,0 +1,1 @@
+multi_call_signature = "0x8d80ff0a"
