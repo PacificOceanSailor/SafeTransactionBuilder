@@ -1,5 +1,5 @@
 # SafeTransactionBuilder
-A user-friendly interface for creating bashes on Safe Wallet and signing them. It makes creating multiple transaction on multiple chains easy.
+A user-friendly interface for creating bashes on Safe Wallet and signing them. It makes creating multiple transactions on multiple chains easy.
 ## Installaion
 Running this command the requirements of the project would be installed on you machine.
 * ⚠️ caution: Do not install other version of the required packages. The project might not work due to incompatibility of some of the important packages *
