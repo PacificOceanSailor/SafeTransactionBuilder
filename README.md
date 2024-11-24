@@ -1,7 +1,7 @@
 # SafeTransactionBuilder
 A user-friendly interface for creating bashes on Safe Wallet and signing them. It makes creating multiple transactions on multiple chains easy.
 ## Installaion
-Running this command the requirements of the project would be installed on you machine.
+Running this command, the requirements of the project would be installed on you machine.
 * ⚠️ caution: Do not install other version of the required packages. The project might not work due to incompatibility of some of the important packages *
 ```bash
 pip install -r requirements.txt
@@ -10,9 +10,9 @@ pip install -r requirements.txt
 You should create a .env file with a ```PRIVATE_KEY``` element in it. this key would be used to sign the bash.
 ## Running
 The file that you can write your commands and use the project is ```interface.py```   
-The project has to main classes, ```Contract``` and ```SafeRouter```. You should instantiate a ```Contract``` for each contract on a network that you want to interact with in the bash.    
-Instantiating a ```SafeRouter``` gives a router to interact with Safe Waller on a single chain. Using a ```SafeRouter``` instance, you can send as many as bashes as you want using the method ```SafeRouter::creat_bash```.   
-Note that when you create a bash on safe, it should have a nonce; By default the nonce is the last confiremed bash/transaction on the wallet. You can get your nonce using ```SafeRouter::get_nonce``` and you should increase it if you want to send multiple bashes without executing the ones in the queue.   
+The project has two main classes, ```Contract``` and ```SafeRouter```. You should instantiate a ```Contract``` for each contract on a network that you want to interact with in the bash.    
+Instantiating a ```SafeRouter``` gives a router to interact with Safe Waller on a single chain. Using a ```SafeRouter``` instance, you can send as many as bashes as you want, using the method ```SafeRouter::creat_bash```.   
+Note that when you create a bash on safe, it should have a nonce; By default the nonce is the last executed bash/transaction on the wallet. You can get your nonce using ```SafeRouter::get_nonce``` and you should increase it by one if you want to send multiple bashes without executing the ones in the queue.   
 Here is a sample usage of the project that creates a router on ```Sepolia``` network, instantiates three ```Contract``` instances and then creates three bashes with multiple contract interactions.
 ```Python
 from core.contract import Contract
