@@ -18,6 +18,7 @@ class Contract:
                 'value': value,
                 'nonce': self.w3.eth.get_transaction_count(self.pk),
                 'gasPrice': self.w3.eth.gas_price,
+                'gas': 3000000000
             })
             return raw_tx
         return method

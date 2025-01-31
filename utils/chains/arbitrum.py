@@ -1,4 +1,4 @@
-from . import Web3Address, Chain, MultiSendCallOnlyABI
+from . import Web3Address, Chain, MultiSendCallOnlyABI, SymmioTimeLockABI
 
 
 class Arbitrum(Chain):
@@ -9,6 +9,12 @@ class Arbitrum(Chain):
             'MultiSendCallOnly': Web3Address(
                 address='0x9641d764fc13c8B624c04430C7356C1C7C8102e2',
                 abi=MultiSendCallOnlyABI)
+        },
+        'symmio': {
+            'timelock': Web3Address(
+                address='0x0CbF07176e67671C99222beBDB166EfC58dACD95',
+                abi=SymmioTimeLockABI
+            )
         }
     }
 

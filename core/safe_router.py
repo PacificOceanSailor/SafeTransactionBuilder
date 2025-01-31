@@ -8,18 +8,21 @@ from safe_eth.eth import EthereumClient
 from safe_eth.safe import Safe, SafeOperationEnum
 from eth_abi import encode
 
-import config
+from utils import abi_holder as ABIs
+from core.timelock_router import TimeLockRouter
 from utils.safe_encoder import encode_raw_tx
+from core.router import Router
 import constants as consts
 
 
-class SafeRouter:
+class SafeRouter(Router):
     def __init__(self, chain, safe_address):
-        self.chain = chain()
-        self.w3 = self.chain.get_web3_instance()
-        self.private_key = config.private_key
+        super().__init__(chain)
         ethereum_client = EthereumClient(URI(self.chain.rpc))
         self.safe = Safe(address=self.w3.to_checksum_address(safe_address), ethereum_client=ethereum_client)
+        timelock_address = self.chain.address_book['symmio']['timelock'].address
+        timelock_abi = ABIs.SymmioTimeLockABI
+        self.timelock_router = TimeLockRouter(chain, timelock_address, timelock_abi)
 
     @staticmethod
     def _build_data_get_val(raw_transactions: List[dict]):
@@ -91,5 +94,12 @@ class SafeRouter:
     def get_nonce(self):
         return self.safe.retrieve_nonce()
 
+    def schedule_timelock(self, raw_transactions: List[dict], safe_nonce=None, predecessor: int = 0, salt: int = 0):
+        length: int = len(raw_transactions)
+        scheduled_tx = self.timelock_router.schedule_tx(raw_transactions, length, predecessor, salt)
+        self.create_bash([scheduled_tx], safe_nonce)
 
-
+    def execute_timelock(self, raw_transactions: List[dict], safe_nonce=None, predecessor: int = 0, salt: int = 0):
+        length: int = len(raw_transactions)
+        execute_tx = self.timelock_router.execute_tx(raw_transactions, length, predecessor, salt)
+        self.create_bash([execute_tx], safe_nonce)
