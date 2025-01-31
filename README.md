@@ -15,7 +15,7 @@ Instantiating a ```SafeRouter``` gives a router to interact with Safe Waller on 
 Note that when you create a bash on safe, it should have a nonce; By default the nonce is the last executed bash/transaction on the wallet. You can get your nonce using ```SafeRouter::get_nonce``` and you should increase it by one if you want to send multiple bashes without executing the ones in the queue.   
 Here is a sample usage of the project that creates a router on ```Sepolia``` network, instantiates three ```Contract``` instances and then creates three bashes with multiple contract interactions.
 
-Also using ```SafeRouter:schedule_timelock``` and ```SafeRouter:execute_timelock``` you can schedule and execute on symmio_timelock. You don't have to set it up mannually, just specifying the network, it retrives the related addresses and abis from address book.
+Also using ```SafeRouter:schedule_timelock``` and ```SafeRouter:execute_timelock``` you can schedule and execute on symmio_timelock. You don't have to set it up mannually, just specifying the network, it retrives the related addresses and abis from address book. Consider that gas has been hardcoded to 300000 so it does not estimates gas and fail because of access control of the timelockcontrol contract. 
 ```Python
 from core.contract import Contract
 from core.safe_router import SafeRouter
